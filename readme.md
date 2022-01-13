@@ -14,6 +14,22 @@ More info about javanese calendar:
 1. [Wikipedia Bahasa Indonesia, kalender jawa](https://id.wikipedia.org/wiki/Kalender_Jawa)
 2. [Basic algorithm kalender jawa](http://kalenderimlek.blogspot.com/2017/11/warsa-lambang-dan-windu-dalam-kalender.html)
 
+## Algorithm
+Everything is calculated from the days from epoch time to input date. Using some declaration taken from Wikipedia article above, i can calculate any value in javanese calendar (except Kurup).
+
+## About `hariid/idHari` and `pasaranid/idPasaran`
+I suppose you know a little bit about javanese calendar from articles above. I take idPasaran and idHari from UNIX Epoch time (1 Jan 1970), not from Kurup Asapon Epoch.
+
+| ID | Hari | Pasaran |
+|---|---|---|
+| 0 | Kamis | Wage |
+| 1 | Jum'at | Kliwon |
+| 2 | Sabtu | Legi |
+| 3 | Minggu | Pahing |
+| 4 | Senin | Pon |
+| 5 | Selasa | - |
+| 6 | Rabu | - |
+
 ## URL (Input)
 ```
 https://domain/yyyy-mm-dd
