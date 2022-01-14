@@ -1,4 +1,3 @@
-const e = require("express");
 var express = require("express");
 var router = express.Router();
 
@@ -352,10 +351,7 @@ function Mangsa(unix) {
   return pranataMangsa[P];
 }
 
-function Weton(unix) {
-  let date = unix.getTime();
-  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
-
+function Weton(Rentang) {
   let hariid = Rentang % 7;
   let wetonid = Rentang % 5;
 
@@ -370,10 +366,7 @@ function Input(unix) {
   return `${hari} ${namaBulan} ${tahun}`;
 }
 
-function Neptu(unix) {
-  let date = unix.getTime();
-  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
-
+function Neptu(Rentang) {
   let hariid = Rentang % 7;
   let wetonid = Rentang % 5;
 
@@ -381,9 +374,7 @@ function Neptu(unix) {
   return neptu;
 }
 
-function Jawa(unix) {
-  let date = unix.getTime();
-  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
+function Jawa(unix, Rentang) {
   let A = Rentang % 2835;
 
   let B = 0;
@@ -421,9 +412,9 @@ function Jawa(unix) {
   let L = Math.floor((((Rentang % 5670) + 2835) % 5670) / 2835);
 
   let winduNow = Math.floor((Rentang % 11340) / 2535);
-  let weton = Weton(unix);
-  let neptu = Neptu(unix);
-  let wuku = Wuku(unix);
+  let weton = Weton(Rentang);
+  let neptu = Neptu(Rentang);
+  let wuku = Wuku(Rentang);
 
   return {
     weton: weton,
@@ -441,12 +432,9 @@ function Jawa(unix) {
   };
 }
 
-function Wuku(unix) {
-  let date = unix.getTime();
-  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24 - 1);
+function Wuku(Rentang) {
   let penyesuaian = 12;
-
-  let wukuId = Math.round((Rentang / 7) % 30 + penyesuaian);
+  let wukuId = Math.round(((Rentang - 1 ) / 7) % 30 + penyesuaian);
 
   return wukuList[wukuId];
 }
@@ -454,8 +442,10 @@ function Wuku(unix) {
 router.get("*", function (req, res) {
   let input = req.path.slice(1);
   let unix = new Date(input);
+  let date = unix.getTime();
+  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
 
-  let jawa = Jawa(unix);
+  let jawa = Jawa(unix, Rentang);
   let inputFormatted = Input(unix);
 
   res.json({
