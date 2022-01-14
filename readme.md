@@ -8,7 +8,7 @@
 # Javanese Calendar API
 Public API build in nodejs (express) that takes gregorian calendar input `yyyy-mm-dd` and return various javanese calendar value corresponding to the input value it gets.
 
-I hardcode (as variable) the kurup (120 years cycle) to 24 March 1936, which the day when kurup Asapon began. Often time, the kurup cycle is determined by kasultanan yogya or mataram, so i think hardcoding it will be the best option. The next kurup will happen in year 1986 Javanese (or maybe sooner). 
+I hardcode (as variable) the kurup (120 years cycle) to 24 March 1936, which the day when kurup Asapon began. Often time, the kurup cycle is determined by kasultanan yogya or mataram, so i think hardcoding should be the best option. The next kurup will happen in year 1986 Javanese (or maybe sooner). 
 
 More info about javanese calendar:
 1. [Wikipedia Bahasa Indonesia, kalender jawa](https://id.wikipedia.org/wiki/Kalender_Jawa)
@@ -26,13 +26,13 @@ I suppose you know a little bit about javanese calendar from articles above. I t
 
 | ID | Hari | Pasaran |
 |---|---|---|
-| 0 | Kamis | Wage |
-| 1 | Jum'at | Kliwon |
-| 2 | Sabtu | Legi |
-| 3 | Minggu | Pahing |
-| 4 | Senin | Pon |
-| 5 | Selasa | - |
-| 6 | Rabu | - |
+| 0 | Selasa | Pon |
+| 1 | Rabu | Wage |
+| 2 | Kamis | Kliwon |
+| 3 | Jum'at | Legi |
+| 4 | Sabtu | Pahing |
+| 5 | Minggu | - |
+| 6 | Senin | - |
 
 ## URL (Input)
 ```
@@ -41,6 +41,8 @@ https://domain/yyyy-mm-dd
 
 use GET request, CORS enabled by default. You can use in your project, whatever you want.
 Just deploy in your own server to make sure everything run smoothly.
+
+IMPORTANT : All date since 1936-03-24 is valid, and if you input a date before it, it returns an error due to the Epoch (beginning of kurup) being referenced.
 
 ## Output (JSON Schema)
 

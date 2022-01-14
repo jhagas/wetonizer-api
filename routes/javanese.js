@@ -7,26 +7,26 @@ var router = express.Router();
 const kurupTahun = 1867;
 const kurup = "Asapon (Alip jatuh pada Selasa Pon)";
 const kurupName = "Selasa Pon";
-const kurupId = [5, 4];
+const kurupId = [0, 0];
 // Date when kurup (120y cycle) asapon is started
 // depends on keraton yogyakarta and keraton mataram
 const epoch = new Date(1936, 2, 24).getTime();
 
 const hari = [
+  { hari: "Selasa", neptu: 3 },
+  { hari: "Rabu", neptu: 7 },
   { hari: "Kamis", neptu: 8 },
   { hari: "Jum'at", neptu: 6 },
   { hari: "Sabtu", neptu: 9 },
   { hari: "Minggu", neptu: 5 },
   { hari: "Senin", neptu: 4 },
-  { hari: "Selasa", neptu: 3 },
-  { hari: "Rabu", neptu: 7 },
 ];
 const pasaran = [
+  { pasaran: "Pon", neptu: 7 },
   { pasaran: "Wage", neptu: 4 },
   { pasaran: "Kliwon", neptu: 8 },
   { pasaran: "Legi", neptu: 5 },
   { pasaran: "Pahing", neptu: 9 },
-  { pasaran: "Pon", neptu: 7 },
 ];
 const bulan = [
   "Januari",
@@ -60,6 +60,39 @@ const wulan = [
   "Séla",
   "Besar",
 ];
+const wukuList = [
+  "Sinta",
+  "Landep",
+  "Wukir",
+  "Kurantil",
+  "Tolu",
+  "Gumbreg",
+  "Warigalit",
+  "Warigagung",
+  "Julungwangi",
+  "Sungsang",
+  "Galungan",
+  "Kuningan",
+  "Langkir",
+  "Mandasiya",
+  "Julungpujut",
+  "Pahang",
+  "Kuruwelut",
+  "Marakeh",
+  "Tambir",
+  "Medangkungan",
+  "Maktal",
+  "Wuye",
+  "Manahil",
+  "Prangbakat",
+  "Bala",
+  "Wugu",
+  "Wayang",
+  "Kulawu",
+  "Dukut",
+  "Watugunung",
+];
+
 const windu = ["Adi", "Kuntara", "Sengara", "Sancaya"];
 const lambang = ["Kelawu", "Langkir"];
 
@@ -136,7 +169,7 @@ const pranataMangsa = [
 // Warsa is depended on kurup
 function WarsaInfo() {
   const alip = {
-    nama: "Alip",
+    warsa: "Alip",
     satuSura: {
       jatuhPada: kurupName,
       idHari: kurupId[0],
@@ -144,7 +177,7 @@ function WarsaInfo() {
     },
   };
   const ehe = {
-    nama: "Ehe",
+    warsa: "Ehe",
     satuSura: {
       jatuhPada: `${hari[(kurupId[0] + jumlahHariTiapTahun[0]) % 7]["hari"]} ${
         pasaran[(kurupId[1] + jumlahHariTiapTahun[0]) % 5]["pasaran"]
@@ -154,7 +187,7 @@ function WarsaInfo() {
     },
   };
   const jimawal = {
-    nama: "Jimawal",
+    warsa: "Jimawal",
     satuSura: {
       jatuhPada: `${
         hari[(ehe.satuSura.idHari + jumlahHariTiapTahun[1]) % 7]["hari"]
@@ -168,7 +201,7 @@ function WarsaInfo() {
     },
   };
   const je = {
-    nama: "Jé",
+    warsa: "Jé",
     satuSura: {
       jatuhPada: `${
         hari[(jimawal.satuSura.idHari + jumlahHariTiapTahun[2]) % 7]["hari"]
@@ -182,7 +215,7 @@ function WarsaInfo() {
     },
   };
   const dal = {
-    nama: "Dal",
+    warsa: "Dal",
     satuSura: {
       jatuhPada: `${
         hari[(je.satuSura.idHari + jumlahHariTiapTahun[3]) % 7]["hari"]
@@ -194,7 +227,7 @@ function WarsaInfo() {
     },
   };
   const be = {
-    nama: "Bé",
+    warsa: "Bé",
     satuSura: {
       jatuhPada: `${
         hari[(dal.satuSura.idHari + jumlahHariTiapTahun[4]) % 7]["hari"]
@@ -208,7 +241,7 @@ function WarsaInfo() {
     },
   };
   const wawu = {
-    nama: "Wawu",
+    warsa: "Wawu",
     satuSura: {
       jatuhPada: `${
         hari[(be.satuSura.idHari + jumlahHariTiapTahun[5]) % 7]["hari"]
@@ -220,7 +253,7 @@ function WarsaInfo() {
     },
   };
   const jimakir = {
-    nama: "jimakir",
+    warsa: "jimakir",
     satuSura: {
       jatuhPada: `${
         hari[(wawu.satuSura.idHari + jumlahHariTiapTahun[6]) % 7]["hari"]
@@ -251,6 +284,9 @@ function AwalBulan(info) {
   const dulkijah = [4, 1];
 
   return {
+    sura: `Sura, ${hari[info.satuSura.idHari % 7]["hari"]} ${
+      pasaran[info.satuSura.idPasaran % 5]["pasaran"]
+    }`,
     sapar: `Sapar, ${hari[(info.satuSura.idHari + sapar[0] - 1) % 7]["hari"]} ${
       pasaran[(info.satuSura.idPasaran + sapar[1] - 1) % 5]["pasaran"]
     }`,
@@ -298,7 +334,7 @@ function Mangsa(unix) {
   );
   let leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 
-  let P = 0
+  let P = 0;
   let A = Rentang - 32;
 
   if (leap) {
@@ -313,26 +349,33 @@ function Mangsa(unix) {
     }
   }
 
-  return pranataMangsa[P]
+  return pranataMangsa[P];
 }
 
 function Weton(unix) {
-  let date = unix.getTime() / 1000 / 3600 / 24;
+  let date = unix.getTime();
+  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
 
-  let tanggal = unix.getDate();
+  let hariid = Rentang % 7;
+  let wetonid = Rentang % 5;
+
+  return `${hari[hariid]["hari"]} ${pasaran[wetonid]["pasaran"]}`;
+}
+
+function Input(unix) {
+  let hari = unix.getDate();
+  let namaBulan = bulan[unix.getMonth()];
   let tahun = unix.getFullYear();
 
-  let hariid = date % 7;
-  let bulanid = unix.getMonth();
-  let wetonid = date % 5;
-
-  return `${hari[hariid]["hari"]} ${pasaran[wetonid]["pasaran"]}, ${tanggal} ${bulan[bulanid]} ${tahun}`;
+  return `${hari} ${namaBulan} ${tahun}`;
 }
 
 function Neptu(unix) {
-  let date = unix.getTime() / 1000 / 3600 / 24;
-  let hariid = date % 7;
-  let wetonid = date % 5;
+  let date = unix.getTime();
+  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24);
+
+  let hariid = Rentang % 7;
+  let wetonid = Rentang % 5;
 
   let neptu = pasaran[wetonid]["neptu"] + hari[hariid]["neptu"];
   return neptu;
@@ -378,29 +421,46 @@ function Jawa(unix) {
   let L = Math.floor((((Rentang % 5670) + 2835) % 5670) / 2835);
 
   let winduNow = Math.floor((Rentang % 11340) / 2535);
+  let weton = Weton(unix);
+  let neptu = Neptu(unix);
+  let wuku = Wuku(unix);
 
   return {
+    weton: weton,
+    neptu: neptu,
     tanggal: H,
+    wuku,
     bulan: wulan[B],
-    tahun: { numerik: T, warsa: info, awalBulan: awal },
+    mangsa,
+    tahun: T,
+    warsa: info.warsa,
+    awalBulan: awal,
     windu: windu[winduNow],
     lambang: lambang[L],
-    mangsa,
+    kurup: kurup,
   };
+}
+
+function Wuku(unix) {
+  let date = unix.getTime();
+  let Rentang = Math.floor((date - epoch) / 1000 / 3600 / 24 - 1);
+  let penyesuaian = 12;
+
+  let wukuId = Math.round((Rentang / 7) % 30 + penyesuaian);
+
+  return wukuList[wukuId];
 }
 
 router.get("*", function (req, res) {
   let input = req.path.slice(1);
   let unix = new Date(input);
 
-  let weton = Weton(unix);
-  let neptu = Neptu(unix);
   let jawa = Jawa(unix);
+  let inputFormatted = Input(unix);
 
   res.json({
-    pasaran: { weton: weton, neptu: neptu },
+    input: inputFormatted,
     jawa,
-    kurup: kurup,
   });
 });
 module.exports = router;
