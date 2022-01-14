@@ -45,7 +45,43 @@ Just deploy in your own server to make sure everything run smoothly.
 IMPORTANT : All date since 1936-03-24 is valid, and if you input a date before it, it returns an error due to the Epoch (beginning of kurup) being referenced.
 
 ## Output (JSON Schema)
+```json
+{
+  "input": "4 Oktober 2004",//string
+  "jawa": { //object
+    "weton": "Senin Wage", //string
+    "neptu": 8, //integer
+    "tanggal": 19, //integer
+    "wuku": "Tambir", //string
+    "bulan": "Ruwah", //string
+    "mangsa": { //object
+      "nama": "Kapat (sitra)", //string
+      "deskripsi": "Sawah tidak ada (jarang) tanaman, sebab musim kemarau, para petani mulai menggarap sawah untuk ditanami padi gaga, pohon kapuk mulai berbuah, burung-burung kecil mulai bertelur. Penampakannya/ibaratnya : waspa kumembeng jroning kalbu (sumber). Musim sumur kering, kapuk berbuah, tanam pisang. Pada masa ini kemarau berakhir." //string
+    },
+    "tahun": 1937, //integer
+    "warsa": "Wawu", //string
+    "awalBulan": { //object
+      "sura": "Sura, Minggu Wage", //string
+      "sapar": "Sapar, Selasa Wage", //string
+      "mulud": "Mulud/Rabiul awal, Rabu Pon", //string
+      "rabiulakir": "Bakda mulud/Rabiul akir, Jum'at Pon", //string
+      "jumadilawal": "Jumadil awal, Sabtu Pahing", //string
+      "jumadilakir": "Jumadil akir, Senin Pahing", //string
+      "rejeb": "Rejeb, Selasa Legi", //string
+      "ruwah": "Ruwah/Syaban, Kamis Legi", //string
+      "pasa": "Pasa, Jum'at Kliwon", //string
+      "syawal": "Syawal, Minggu Kliwon", //string
+      "dulkaidah": "Séla/Dulkaidah, Senin Wage", //string
+      "dulkijah": "Besar/Dulkijah, Rabu Wage" //string
+    },
+    "windu": "Adi", //string
+    "lambang": "Langkir", //string
+  }
+}
+```
 
+## TO-DO
+- [ ] Dina ala as in this [article](https://primbonjawa21.blogspot.com/2019/01/dina-ala-twangke-samparwangke.html)
 
 ## Deployment
 I will be using Vercel as demonstration for this API. I predict this express server will be resource intensive (on large scale) because the number calculations it makes.
