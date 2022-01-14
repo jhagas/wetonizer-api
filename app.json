@@ -1,0 +1,7 @@
+{
+  "name": "Wetonizer API",
+  "description": "Public API to calculate javanese calendar from Gregorian calendar input",
+  "repository": "https://github.com/jhagas/wetonizer-api",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "express", "static", "javanese", "calendar"]
+}

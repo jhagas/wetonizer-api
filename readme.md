@@ -22,7 +22,7 @@ Everything is calculated from the days from epoch time to input date. Using some
 In the code I use the term 'biasa' and 'kabisat'. Biasa (Javanese:wastu) is an usual year, and kabisat (Javanese:wuntu) is a leap year
 
 ## About `hariid/idHari` and `pasaranid/idPasaran`
-I suppose you know a little bit about javanese calendar from articles above. I take idPasaran and idHari from UNIX Epoch time (1 Jan 1970), not from Kurup Asapon Epoch.
+I suppose you know a little bit about javanese calendar from articles above. I take idPasaran and idHari from Epoch time (24 Mar 1936), not from UNIX Epoch.
 
 | ID | Hari | Pasaran |
 |---|---|---|
@@ -84,4 +84,6 @@ IMPORTANT : All date since 1936-03-24 is valid, and if you input a date before i
 - [ ] Dina ala as in this [article](https://primbonjawa21.blogspot.com/2019/01/dina-ala-twangke-samparwangke.html)
 
 ## Deployment
-I will be using Vercel as demonstration for this API. I predict this express server will be resource intensive (on large scale) because the number calculations it makes.
+I will be using Heroku as demonstration for this API. I predict this express server will be resource intensive (on large scale) because the number calculations it makes.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jhagas/wetonizer-api)
